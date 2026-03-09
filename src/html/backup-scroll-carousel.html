@@ -1,0 +1,421 @@
+<section class="carousel-section" id="carouselSection">
+    <div class="carousel-viewport">
+        <div class="slide" data-index="0">
+            <div class="slide-text-wrap">
+                <h3>HAIR CARE</h3>
+                <button class="view-more-btn" onclick="location.href='https://colorroom.co.kr/category/hair-care/64/'">
+                    <span>VIEW MORE</span>
+                    <svg class="view-more-btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><path d="M17.5303 9.46973C17.6709 9.61038 17.75 9.80109 17.75 10C17.75 10.1989 17.6709 10.3896 17.5303 10.5303L11.5303 16.5303L10.4697 15.4697L15.1895 10.75H3V9.25H15.1895L10.4697 4.53027L11.5303 3.46973L17.5303 9.46973Z" fill="currentColor"/></svg>
+                </button>
+            </div>
+            <picture>
+                <source media="(max-width: 1000px)" srcset="/web/upload/unfold_reflow/shop-hair-care_m.png?ver=260211_1">
+                <img src="/web/upload/unfold_reflow/shop-hair-care.png?ver=260211_1" alt="hair care image">
+            </picture>
+        </div>
+        <div class="slide" data-index="1">
+            <div class="slide-text-wrap">
+                <h3>HAIR DEVICE</h3>
+                <button class="view-more-btn" onclick="location.href='https://colorroom.co.kr/category/hair-device/24/'">
+                    <span>VIEW MORE</span>
+                    <svg class="view-more-btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><path d="M17.5303 9.46973C17.6709 9.61038 17.75 9.80109 17.75 10C17.75 10.1989 17.6709 10.3896 17.5303 10.5303L11.5303 16.5303L10.4697 15.4697L15.1895 10.75H3V9.25H15.1895L10.4697 4.53027L11.5303 3.46973L17.5303 9.46973Z" fill="currentColor"/></svg>
+                </button>
+            </div>
+            <picture>
+                <source media="(max-width: 1000px)" srcset="/web/upload/unfold_reflow/shop-hair-device_m.png?ver=260211_1">
+                <img src="/web/upload/unfold_reflow/shop-hair-device.png?ver=260211_1" alt="hair device image">
+            </picture>
+        </div>
+        <div class="slide" data-index="2">
+            <div class="health-food-text-wrap">
+                <h3>HEALTH FOOD</h3>
+                <button class="view-more-btn" onclick="location.href='https://colorroom.co.kr/category/health-food/25/'">
+                    <span>VIEW MORE</span>
+                    <svg class="view-more-btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><path d="M17.5303 9.46973C17.6709 9.61038 17.75 9.80109 17.75 10C17.75 10.1989 17.6709 10.3896 17.5303 10.5303L11.5303 16.5303L10.4697 15.4697L15.1895 10.75H3V9.25H15.1895L10.4697 4.53027L11.5303 3.46973L17.5303 9.46973Z" fill="currentColor"/></svg>
+                </button>
+            </div>
+            <picture>
+                <source media="(max-width: 1000px)" srcset="/web/upload/unfold_reflow/shop-health-food_m.png?ver=260211_1">
+                <img src="/web/upload/unfold_reflow/shop-health-food.png?ver=260211_1" alt="health food image">
+            </picture>
+        </div>
+    </div>
+  </section>
+  
+  <style>
+    .carousel-section {
+        height: 100vh;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+    .carousel-viewport {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+    .carousel-section .slide {
+        position: absolute;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        will-change: transform;
+        z-index: 0;
+        /* 스크롤에 따라 연속으로 움직이므로 transition 제거 */
+    }
+    .carousel-section .slide[data-index="0"] { z-index: 1; }
+    .carousel-section .slide[data-index="1"] { z-index: 2; }
+    .carousel-section .slide[data-index="2"] { z-index: 3; }
+    .carousel-section .slide picture {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        display: block;
+        z-index: 0;
+    }
+    .carousel-section .slide .slide-text-wrap,
+    .carousel-section .slide .health-food-text-wrap {
+        z-index: 1;
+    }
+    .carousel-section .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+    /* transform은 JS에서 offset 기반으로 직접 설정 */
+  
+    .carousel-section .slide .slide-text-wrap {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 210px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+    .carousel-section .slide .health-food-text-wrap {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 179px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 24px;
+    }
+    .carousel-section .slide .slide-text-wrap h3 {
+        color: #000;
+        /* CR_ENG/DESKTOP/Display2 */
+        font-family: Jost;
+        font-size: 48px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 48px; /* 100% */
+    }
+    .carousel-section .slide .health-food-text-wrap h3 {
+        color: #000;
+        text-align: right;
+        /* CR_ENG/DESKTOP/Display2 */
+        font-family: Jost;
+        font-size: 48px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 48px; /* 100% */
+    }
+    .carousel-section .slide .view-more-btn {
+        display: flex;
+        width: 230px;
+        height: 56px;
+        padding: 16px 16px 16px 20px;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+        flex-shrink: 0;
+        border: 1px solid #000;
+        color: #000;
+    }
+    .carousel-section .slide .view-more-btn:hover,
+    .carousel-section .slide .view-more-btn:active {
+        border: 1px solid #000;
+        background: #000;
+        color: #fff;
+    }
+    .carousel-section .slide .view-more-btn:hover span,
+    .carousel-section .slide .view-more-btn:active span {
+        color: #fff;
+    }
+    .carousel-section .slide .view-more-btn span {
+        color: #000;
+        text-align: center;
+        font-family: Jost;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 24px; /* 150% */
+    }
+    .carousel-section .slide .view-more-btn .view-more-btn-icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        fill: currentColor;
+    }
+  
+  
+  
+    /* 모바일 레이아웃 (Figma 모바일 슬라이드 기준) */
+    @media (max-width: 1000px) {
+        /* 툴바/주소창 제외한 보이는 뷰포트에 맞춰 슬라이드 높이 고정 → 하단 VIEW MORE 버튼이 잘리지 않음 */
+        .carousel-section {
+            height: 100vh;
+            height: 100svh;
+        }
+        .carousel-section .slide .slide-text-wrap,
+        .carousel-section .slide .health-food-text-wrap {
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            transform: none;
+            justify-content: space-between;
+            align-items: center;
+            padding: 64px 16px 32px 16px;
+            box-sizing: border-box;
+            width: auto;
+            margin: 0;
+        }
+        .carousel-section .slide .health-food-text-wrap {
+            right: 0;
+        }
+        .carousel-section .slide .slide-text-wrap h3,
+        .carousel-section .slide .health-food-text-wrap h3 {
+            color: #000;
+            text-align: center;
+            /* CR_ENG/MOBILE/Display1 */
+            font-family: Jost;
+            font-size: 36px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 42px; /* 116.667% */
+        }
+        .carousel-section .slide .health-food-text-wrap h3 {
+            text-align: center;
+        }
+        .carousel-section .slide .view-more-btn {
+            width: 100%;
+            height: 48px;
+        }
+        .carousel-section .slide .view-more-btn span {
+            color: #000;
+            text-align: center;
+            /* CR_ENG/DESKTOP/H6 */
+            font-family: Jost;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 24px; /* 171.429% */
+  
+        }
+    }
+  
+  </style>
+  
+  <script>
+    (function () {
+        const section = document.getElementById('carouselSection');
+        const slides = section.querySelectorAll('.slide');
+        const total = slides.length;
+        // 연속 오프셋 (0 ~ total-1): 스크롤량에 비례해 다음 이미지가 bottom에서 조금씩 밀려 올라옴
+        let offset = 0;
+        let isInSection = false;
+        // 휠 1픽셀당 오프셋 변화량 (조절 가능)
+        const WHEEL_SENSITIVITY = 0.002;
+        // 터치 스와이프: 픽셀당 오프셋 (작을수록 덜 민감, 슬라이드 1장당 약 200~250px 스와이프)
+        const TOUCH_SENSITIVITY = 0.003;
+        // 터치 방향: 1 = 위로 스와이프 시 다음 슬라이드(기본), -1 = 반대(일부 모바일에서 필요)
+        const TOUCH_DIRECTION = 1;
+        // 히스테리시스: 진입/이탈 비율 (진입을 낮춰 캡처를 더 안정적으로)
+        const ENTER_THRESHOLD = 0.80;
+        const EXIT_THRESHOLD = 0.5;
+        // 자석 스냅: 섹션이 이 비율 이상 보이면 뷰포트에 붙임
+        const SNAP_VISIBLE_MIN = 0.75;
+        const SNAP_VISIBLE_MAX = 0.99;
+        let snapTimeoutId = 0;
+        let justSnapped = false;
+        // 첫/마지막 이미지에서 이탈 방향으로 연속 스크롤 시 스냅하지 않도록
+        let leaveIntentUp = false;
+        let leaveIntentDown = false;
+  
+        function getVisibleRatio() {
+            const rect = section.getBoundingClientRect();
+            const vh = window.innerHeight;
+            const visibleTop = Math.max(0, rect.top);
+            const visibleBottom = Math.min(vh, rect.bottom);
+            return (visibleBottom - visibleTop) / vh;
+        }
+  
+        function trySnapToViewport() {
+            if (justSnapped) return;
+            const atFirst = offset <= 0.05;
+            const atLast = offset >= total - 1 - 0.05;
+            if (atFirst && leaveIntentUp) return;
+            if (atLast && leaveIntentDown) return;
+            const ratio = getVisibleRatio();
+            if (ratio < SNAP_VISIBLE_MIN || ratio > SNAP_VISIBLE_MAX) return;
+            const rect = section.getBoundingClientRect();
+            const targetScrollY = window.scrollY + rect.top;
+            justSnapped = true;
+            window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
+            setTimeout(function () { justSnapped = false; }, 500);
+        }
+  
+        function applyOffset() {
+            slides.forEach(function (slide, i) {
+                let y;
+                if (offset < i - 1) {
+                    y = 100;   // 아직 안 올라온 상태 (아래에)
+                } else if (offset >= i + 1) {
+                    y = 0;     // 이미 올라온 뒤 (가려짐 또는 최상단)
+                } else if (i - 1 <= offset && offset < i) {
+                    y = (i - offset) * 100;  // 아래에서 조금씩 밀려 올라오는 중
+                } else {
+                    y = 0;     // i <= offset < i+1: 현재 보이는 슬라이드
+                }
+                slide.style.transform = 'translateY(' + y + '%)';
+            });
+        }
+  
+        function updateInSection() {
+            // 캐러셀 전환 중(중간 인덱스)이면 한 번 캡처된 상태 유지 → 전환 끝까지 페이지 스크롤 안 함
+            if (offset > 0.02 && offset < total - 1 - 0.02) {
+                isInSection = true;
+                return true;
+            }
+            const ratio = getVisibleRatio();
+            if (isInSection) {
+                isInSection = ratio >= EXIT_THRESHOLD;
+            } else {
+                isInSection = ratio >= ENTER_THRESHOLD;
+            }
+            return isInSection;
+        }
+  
+        function scrollPageUp() {
+            const amount = window.innerHeight * 0.4;
+            window.scrollBy({ top: -amount, behavior: 'smooth' });
+        }
+        function scrollPageDown() {
+            const amount = window.innerHeight * 0.4;
+            window.scrollBy({ top: amount, behavior: 'smooth' });
+        }
+  
+        function handleScrollDelta(deltaY, preventFn) {
+            updateInSection();
+            const atFirst = offset <= 0;
+            const atLast = offset >= total - 1;
+            if (atFirst && deltaY < 0) {
+                if (preventFn) preventFn();
+                leaveIntentUp = true;
+                leaveIntentDown = false;
+                scrollPageUp();
+                return;
+            }
+            if (atLast && deltaY > 0) {
+                if (preventFn) preventFn();
+                leaveIntentDown = true;
+                leaveIntentUp = false;
+                scrollPageDown();
+                return;
+            }
+            leaveIntentUp = false;
+            leaveIntentDown = false;
+            if (!isInSection) return;
+            if (preventFn) preventFn();
+            offset += deltaY * WHEEL_SENSITIVITY;
+            offset = Math.max(0, Math.min(total - 1, offset));
+            applyOffset();
+        }
+  
+        section.addEventListener('wheel', function (e) {
+            handleScrollDelta(e.deltaY, function () { e.preventDefault(); });
+        }, { passive: false });
+  
+        let touchStartY = 0;
+        let touchStartOffset = 0;
+        let willCaptureTouch = false;
+        var leaveScrollPending = null;
+        section.addEventListener('touchstart', function (e) {
+            if (e.touches.length !== 1) return;
+            leaveScrollPending = null;
+            touchStartY = e.touches[0].clientY;
+            touchStartOffset = offset;
+            var ratio = getVisibleRatio();
+            willCaptureTouch = ratio >= ENTER_THRESHOLD;
+            if (willCaptureTouch) updateInSection();
+        }, { passive: true });
+        section.addEventListener('touchmove', function (e) {
+            if (e.touches.length !== 1) return;
+            if (willCaptureTouch) e.preventDefault();
+            updateInSection();
+            var deltaY = touchStartY - e.touches[0].clientY;
+            var atFirst = offset <= 0;
+            var atLast = offset >= total - 1;
+            // 이탈: 첫 슬라이드에서 아래로 스와이프(deltaY<0) → 페이지 위로 / 마지막에서 위로 스와이프(deltaY>0) → 페이지 아래로
+            if (atFirst && deltaY < 0) {
+                leaveIntentUp = true;
+                leaveIntentDown = false;
+                leaveScrollPending = 'up';
+                return;
+            }
+            if (atLast && deltaY > 0) {
+                leaveIntentDown = true;
+                leaveIntentUp = false;
+                leaveScrollPending = 'down';
+                return;
+            }
+            leaveScrollPending = null;
+            leaveIntentUp = false;
+            leaveIntentDown = false;
+            if (!willCaptureTouch) return;
+            // 위로 스와이프(페이지 아래로 스크롤하는 방향) → 다음 슬라이드. deltaY = touchStartY - clientY (손가락 위로 시 deltaY > 0). TOUCH_DIRECTION으로 기기별 반전 가능.
+            offset = touchStartOffset + (TOUCH_DIRECTION * deltaY) * TOUCH_SENSITIVITY;
+            offset = Math.max(0, Math.min(total - 1, offset));
+            applyOffset();
+        }, { passive: false });
+        section.addEventListener('touchend', function () {
+            if (leaveScrollPending === 'up') scrollPageUp();
+            if (leaveScrollPending === 'down') scrollPageDown();
+            leaveScrollPending = null;
+            touchStartOffset = offset;
+            willCaptureTouch = false;
+        }, { passive: true });
+  
+        // 이탈 의도 플래그는 섹션이 거의 화면 밖으로 나갔을 때만 초기화 (이탈 중에 스냅이 다시 걸리지 않도록)
+        const LEAVE_CLEAR_RATIO = 0.1;
+  
+        window.addEventListener('scroll', function () {
+            updateInSection();
+            var ratio = getVisibleRatio();
+            section.style.touchAction = ratio >= ENTER_THRESHOLD ? 'none' : 'auto';
+            if (ratio < LEAVE_CLEAR_RATIO) {
+                leaveIntentUp = false;
+                leaveIntentDown = false;
+            }
+            clearTimeout(snapTimeoutId);
+            snapTimeoutId = setTimeout(function () {
+                trySnapToViewport();
+            }, 120);
+        }, { passive: true });
+        section.style.touchAction = getVisibleRatio() >= ENTER_THRESHOLD ? 'none' : 'auto';
+  
+        applyOffset();
+    })();
+  </script>
+  

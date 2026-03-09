@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Build
+dist/
+*.local
+
+# Output (screenshots, diff, report)
+output/
+
+# IDE / OS
+.DS_Store
+*.log
+.env
+.env.*
+
+# Playwright
+test-results/
+playwright-report/
+playwright/.cache/
+
+# ESLint
+.eslintcache

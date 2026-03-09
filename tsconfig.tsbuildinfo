@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/basiccard.tsx","./src/components/ui/card.tsx","./src/components/ui/skeleton.tsx","./src/components/ui/typography.tsx","./src/lib/utils.ts","./scripts/figma-baseline.ts","./scripts/screenshot.ts","./scripts/types.d.ts","./scripts/visual-diff.ts"],"errors":true,"version":"5.6.3"}

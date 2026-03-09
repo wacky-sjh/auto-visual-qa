@@ -1,0 +1,140 @@
+<!-- 이미지의 새로고침이 바로 필요한 경우 아래 기재된 영역내 ?ver=2 의 뒤 숫자 부분을 임의의 원하시는 숫자로 변경하시면 업데이트가 가능합니다 --> 
+<!-- 문구는 아래에서 검정색 텍스트를 수정하여 주세요.-->
+
+<section class="shop-hero-section">
+  <div class="hero-text-wrap">
+      <h1 class="hero-text-second text-display1">
+          From Scalp to Soul<br>Curated Essentials by Color Room
+      </h1>
+      <p class="hero-text-third text-body1">
+          Spanning professional hair care, advanced styling technology, and premium wellness essentials.<br>
+          We provide a holistic portfolio designed to elevate every aspect of your daily life and empower the best version of yourself.
+      </p>
+  </div><!--hero-text-wrap-->
+
+  <div class="hero-img-wrap">
+      <img src="/web/upload/unfold_reflow/shop-hero-bg_m.png?ver=260211_1" alt="shop hero" class="res-mo">
+      <img src="/web/upload/unfold_reflow/shop-hero-bg.png?ver=260210_1" alt="shop hero" class="res-pc">
+  </div>
+</section>
+
+<style>
+
+  .shop-hero-section {
+      position: relative;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+  }
+
+  .shop-hero-section .hero-text-wrap {
+      position: absolute;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 100px;
+      gap: 10px;
+  }
+
+  .hero-text-first {
+      flex: 1;
+      color: var(--white);
+  }
+
+  .hero-text-second {
+      flex: 1;
+      color: var(--white);
+  }
+
+  .hero-text-third {
+      flex: 1;
+      color: var(--white);
+  }
+
+  .shop-hero-section .hero-img-wrap {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin: 0;
+      padding: 0;
+      line-height: 0;   /* 이미지 위/아래 인라인 간격 제거 */
+      font-size: 0;
+  }
+
+  /* 반응형: PC에서는 PC 이미지만, 모바일에서는 모바일 이미지만 */
+  .shop-hero-section .hero-img-wrap .res-pc {
+      display: block !important;
+  }
+  .shop-hero-section .hero-img-wrap .res-mo {
+      display: none !important;
+  }
+
+  .shop-hero-section .hero-img-wrap img {
+      display: block;   /* 인라인 기본값으로 생기는 위쪽 여백 제거 */
+      width: 100%;
+      vertical-align: top;
+  }
+
+  @media (max-width:1000px) {
+      .shop-hero-section {
+          --header-offset: 106px;
+      }
+
+      .shop-hero-section .hero-text-wrap {
+          left: 16px;
+          gap: 8px;
+          width: 328px;
+      }
+
+      .hero-text-first {
+          /* CR_ENG/MOBILE/H3 */
+          font-family: Jost;
+          font-size: 20px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 24px; /* 120% */
+      }
+
+      .hero-text-second {
+          /* CR_ENG/MOBILE/Display1 */
+          font-family: Jost;
+          font-size: 36px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: 42px; /* 116.667% */
+      }
+
+      .hero-text-third {
+          /* CR_ENG/MOBILE/Body */
+          font-family: Pretendard;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 20px; /* 142.857% */
+      }
+
+      .shop-hero-section .hero-img-wrap {
+          width: 100%;
+          height: calc(100vh - var(--header-offset));
+          height: calc(100dvh - var(--header-offset)); /* 모바일 주소창 표시/숨김 대응 */
+          overflow: hidden;
+      }
+
+      .shop-hero-section .hero-img-wrap img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+      }
+
+      .shop-hero-section .hero-img-wrap .res-pc {
+          display: none !important;
+      }
+      .shop-hero-section .hero-img-wrap .res-mo {
+          display: block !important;
+      }
+  }
+
+</style>

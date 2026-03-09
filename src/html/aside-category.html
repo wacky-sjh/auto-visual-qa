@@ -1,0 +1,97 @@
+<div class="nav">
+
+  <div class="menu-list"><a href="/brand.html">BRAND</a></div> 
+  <div class="menu-list menu-list--has-sub">
+    <div class="menu-list__row menu-list__row--toggle" data-submenu-toggle aria-expanded="false">
+      <a href="/shop.html">SHOP</a>
+      <span class="menu-list__icon" aria-hidden="true">
+        <svg class="menu-list__icon-svg menu-list__icon-plus" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" aria-hidden="true"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg>
+        <svg class="menu-list__icon-svg menu-list__icon-minus" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" hidden aria-hidden="true"><line x1="1" y1="8" x2="15" y2="8"/></svg>
+      </span>
+    </div>
+    <ul class="submenu" id="shop-submenu" hidden>
+      <li class="submenu__item"><a href="/category/hair-care/64/">Hair Care</a></li>
+      <li class="submenu__item"><a href="/category/scalp-care/85/">Scalp Care</a></li>
+      <li class="submenu__item"><a href="/category/hair-device/24/">Hair Device</a></li>
+      <li class="submenu__item"><a href="/category/accessories/91/">Accessories</a></li>
+      <li class="submenu__item"><a href="/category/health-food/25/">Health Food</a></li>
+      <li class="submenu__item"><a href="/category/lifestyle/26/">Lifestyle</a></li>
+    </ul>
+  </div> 
+  <div class="menu-list"><a href="/academy.html">ACADEMY</a></div> 
+  <div class="menu-list"><a href="/partnership.html">PARTNERSHIP</a></div>    
+  <div class="menu-list"><a href="/product/list-video.html?cate_no=83">YOUTUBE</a></div> 
+  <div class="menu-list"><a href="/stockitst.html">STOCKIST</a></div> 
+
+</div><!--nav-->
+
+<style>
+  .menu-list__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .menu-list__row--toggle {
+    cursor: pointer;
+  }
+  .menu-list__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+  }
+  .menu-list__icon .menu-list__icon-svg {
+    display: block;
+  }
+  .menu-list__icon .menu-list__icon-svg[hidden] {
+    display: none !important;
+  }
+  .submenu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    padding-left: 9px;
+    margin: 8px 0 9px 0;
+  }
+  .submenu__item {
+    margin: 0;
+    margin-top: 2px;
+  }
+  .submenu__item:first-child {
+  }
+  .submenu__item a {
+    display: block;
+    font-size: 14px;
+  }
+</style>
+
+<script>
+(function () {
+  var row = document.querySelector('[data-submenu-toggle]');
+  var submenu = document.getElementById('shop-submenu');
+  var iconWrap = row && row.querySelector('.menu-list__icon');
+  var iconPlus = iconWrap && iconWrap.querySelector('.menu-list__icon-plus');
+  var iconMinus = iconWrap && iconWrap.querySelector('.menu-list__icon-minus');
+  if (!row || !submenu || !iconWrap) return;
+  function setIconsByExpanded(expanded) {
+    if (iconPlus) {
+      if (expanded) iconPlus.setAttribute('hidden', '');
+      else iconPlus.removeAttribute('hidden');
+    }
+    if (iconMinus) {
+      if (expanded) iconMinus.removeAttribute('hidden');
+      else iconMinus.setAttribute('hidden', '');
+    }
+  }
+
+  row.addEventListener('click', function (e) {
+    if (e.target.tagName === 'A') return;
+    var wasHidden = submenu.hidden;
+    submenu.hidden = !wasHidden;
+    var isExpanded = !submenu.hidden;
+    row.setAttribute('aria-expanded', isExpanded);
+    setIconsByExpanded(isExpanded);
+  });
+})();
+</script>

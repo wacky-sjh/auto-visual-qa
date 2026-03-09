@@ -1,0 +1,105 @@
+<!--@layout(/layout/basic/layout.html)-->
+<!--@css(/Unfold/UnfoldCss/index.css)-->
+
+<div class="sections">  
+    <!-- SHOP 페이지 컨텐츠 영역 시작 -->   
+    <div class="shop-submenu-bar-wrap" id="shop-submenu-bar-wrap">
+        <div class="full-width-content"><!--@import(/Unfold/UnfoldLayout/shop-sub-menu-bar.html)--></div>
+    </div>
+    <div class="shop-submenu-spacer" id="shop-submenu-spacer" aria-hidden="true"></div>
+
+    <div class="full-width-content"><!--@import(/Unfold/UnfoldLayout/shop-hero.html)--></div> <!-- SHOP 페이지내 Hero 배너&텍스트 -->
+
+    <!--@import(/Unfold/UnfoldLayout/main-product-list2.html)--> <!-- SHOP 페이지내 Our Best Sellers 메인 4열 제품 -->
+
+    <!--@import(/Unfold/UnfoldLayout/main-product-list3.html)--> <!-- SHOP 페이지내 New Arrival 메인 3열 제품 (코딩수정 불필요) -->
+
+    <div class="full-width-content"><!--@import(/Unfold/UnfoldLayout/shop-vertical-carousel.html)--></div> <!-- SHOP 페이지내 Scroll-snap 캐러셀 (수직 방향) -->
+
+    <!-- SHOP 페이지 컨텐츠 영역 END -->   
+</div>
+
+
+<style>
+    /* Shop 서브메뉴: 스크롤 시 헤더 높이(top)에 fixed로 붙음 */
+    .shop-submenu-bar-wrap {
+        z-index: 9;
+        background: #fff;
+    }
+    .shop-submenu-bar-wrap.is-fixed {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: var(--header-fixed-height, 80px);
+        box-shadow: 0 1px 0 0 #eee;
+    }
+    .shop-submenu-spacer {
+        height: 0;
+        overflow: hidden;
+    }
+
+    #contents {
+        padding-bottom: 160px !important;
+    }
+
+    .contents-wrap {
+        width: 100% !important;
+        margin-top: 0px !important;
+        margin-bottom:0px !important;
+    }
+
+    /* Our Best Sellers 메인 4열 제품 섹션 */
+    .ec-base-product-main-02 {
+        width: 100%;
+		margin-top: 0;
+        border-top: none;
+    }
+
+    /* New Arrival 메인 3열 제품 섹션 */
+    .main-pro-list-02 {
+        width: 100%;
+        padding-bottom: 92px;
+        margin-top: 0 !important;
+    }
+
+    @media all and (max-width:1000px) {
+        #contents {
+            padding-bottom: 64px !important;
+        }
+        .contents-wrap {
+            width: 100% !important;
+            margin-top: 0px !important;
+            margin-bottom: 0 !important;
+        }
+
+        /* New Arrival 메인 3열 제품 섹션 */
+        .main-pro-list-02 {
+            padding-bottom: 64px;
+        }
+    }
+
+    /*1000*/
+</style>
+<script>
+(function() {
+    var wrap = document.getElementById('shop-submenu-bar-wrap');
+    var spacer = document.getElementById('shop-submenu-spacer');
+    if (!wrap || !spacer) return;
+    var headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-fixed-height'), 10) || 80;
+    function update() {
+        var top = wrap.getBoundingClientRect().top + window.scrollY;
+        var needFixed = window.scrollY >= top - headerHeight;
+        if (needFixed) {
+            var h = wrap.offsetHeight;
+            wrap.classList.add('is-fixed');
+            spacer.style.height = h + 'px';
+        } else {
+            wrap.classList.remove('is-fixed');
+            spacer.style.height = '0';
+        }
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+})();
+</script>

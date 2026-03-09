@@ -1,0 +1,299 @@
+<section class="carousel-section" id="carouselSection">
+    <div class="carousel-sticky">
+        <div class="carousel-viewport">
+            <div class="slide" data-index="0">
+                <div class="slide-text-wrap">
+                    <h3>HAIR CARE</h3>
+                    <button class="view-more-btn" onclick="location.href='https://colorroom.co.kr/category/hair-care/64/'">
+                        <span>VIEW MORE</span>
+                        <svg class="view-more-btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><path d="M17.5303 9.46973C17.6709 9.61038 17.75 9.80109 17.75 10C17.75 10.1989 17.6709 10.3896 17.5303 10.5303L11.5303 16.5303L10.4697 15.4697L15.1895 10.75H3V9.25H15.1895L10.4697 4.53027L11.5303 3.46973L17.5303 9.46973Z" fill="currentColor"/></svg>
+                    </button>
+                </div>
+                <picture>
+                    <source media="(max-width: 1000px)" srcset="/web/upload/unfold_reflow/shop-hair-care_m.png?ver=260211_1">
+                    <img src="/web/upload/unfold_reflow/shop-hair-care.png?ver=260211_1" alt="hair care image">
+                </picture>
+            </div>
+            <div class="slide" data-index="1">
+                <div class="slide-text-wrap">
+                    <h3>HAIR DEVICE</h3>
+                    <button class="view-more-btn" onclick="location.href='https://colorroom.co.kr/category/hair-device/24/'">
+                        <span>VIEW MORE</span>
+                        <svg class="view-more-btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><path d="M17.5303 9.46973C17.6709 9.61038 17.75 9.80109 17.75 10C17.75 10.1989 17.6709 10.3896 17.5303 10.5303L11.5303 16.5303L10.4697 15.4697L15.1895 10.75H3V9.25H15.1895L10.4697 4.53027L11.5303 3.46973L17.5303 9.46973Z" fill="currentColor"/></svg>
+                    </button>
+                </div>
+                <picture>
+                    <source media="(max-width: 1000px)" srcset="/web/upload/unfold_reflow/shop-hair-device_m.png?ver=260211_1">
+                    <img src="/web/upload/unfold_reflow/shop-hair-device.png?ver=260211_1" alt="hair device image">
+                </picture>
+            </div>
+            <div class="slide" data-index="2">
+                <div class="health-food-text-wrap">
+                    <h3>HEALTH FOOD</h3>
+                    <button class="view-more-btn" onclick="location.href='https://colorroom.co.kr/category/health-food/25/'">
+                        <span>VIEW MORE</span>
+                        <svg class="view-more-btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><path d="M17.5303 9.46973C17.6709 9.61038 17.75 9.80109 17.75 10C17.75 10.1989 17.6709 10.3896 17.5303 10.5303L11.5303 16.5303L10.4697 15.4697L15.1895 10.75H3V9.25H15.1895L10.4697 4.53027L11.5303 3.46973L17.5303 9.46973Z" fill="currentColor"/></svg>
+                    </button>
+                </div>
+                <picture>
+                    <source media="(max-width: 1000px)" srcset="/web/upload/unfold_reflow/shop-health-food_m.png?ver=260211_1">
+                    <img src="/web/upload/unfold_reflow/shop-health-food.png?ver=260211_1" alt="health food image">
+                </picture>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<style>
+/* 헤더 높이 제외한 뷰포트에 캐러셀 꽉 차게 (슬라이드가 뷰포트보다 커서 흔들림 방지) */
+.carousel-section {
+    --carousel-header-offset: 80px;
+    /* height will be set dynamically by JS based on slide count */
+    position: relative;
+}
+.carousel-sticky {
+    position: sticky;
+    top: var(--carousel-header-offset);
+    height: calc(100vh - var(--carousel-header-offset));
+    overflow: hidden;
+}
+.carousel-viewport {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.carousel-section .slide {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    will-change: transform;
+    z-index: 0;
+}
+.carousel-section .slide[data-index="0"] { z-index: 1; }
+.carousel-section .slide[data-index="1"] { z-index: 2; }
+.carousel-section .slide[data-index="2"] { z-index: 3; }
+.carousel-section .slide picture {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: block;
+    z-index: 0;
+}
+.carousel-section .slide .slide-text-wrap,
+.carousel-section .slide .health-food-text-wrap {
+    z-index: 1;
+}
+.carousel-section .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.carousel-section .slide .slide-text-wrap {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 210px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+.carousel-section .slide .health-food-text-wrap {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 179px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 24px;
+}
+.carousel-section .slide .slide-text-wrap h3 {
+    color: #000;
+    font-family: Jost;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 48px;
+}
+.carousel-section .slide .health-food-text-wrap h3 {
+    color: #000;
+    text-align: right;
+    font-family: Jost;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 48px;
+}
+.carousel-section .slide .view-more-btn {
+    display: flex;
+    width: 230px;
+    height: 56px;
+    padding: 16px 16px 16px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+    border: 1px solid #000;
+    color: #000;
+}
+.carousel-section .slide .view-more-btn:hover,
+.carousel-section .slide .view-more-btn:active {
+    border: 1px solid #000;
+    background: #000;
+    color: #fff;
+}
+.carousel-section .slide .view-more-btn:hover span,
+.carousel-section .slide .view-more-btn:active span {
+    color: #fff;
+}
+.carousel-section .slide .view-more-btn span {
+    color: #000;
+    text-align: center;
+    font-family: Jost;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+}
+.carousel-section .slide .view-more-btn .view-more-btn-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    fill: currentColor;
+}
+
+@media (max-width: 1000px) {
+    .carousel-section {
+        --carousel-header-offset: 50px;
+    }
+    .carousel-sticky {
+        height: calc(100vh - var(--carousel-header-offset));
+        height: calc(100svh - var(--carousel-header-offset));
+    }
+    .carousel-section .slide .slide-text-wrap,
+    .carousel-section .slide .health-food-text-wrap {
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        transform: none;
+        justify-content: space-between;
+        align-items: center;
+        padding: 64px 16px 32px 16px;
+        box-sizing: border-box;
+        width: auto;
+        margin: 0;
+    }
+    .carousel-section .slide .health-food-text-wrap {
+        right: 0;
+    }
+    .carousel-section .slide .slide-text-wrap h3,
+    .carousel-section .slide .health-food-text-wrap h3 {
+        color: #000;
+        text-align: center;
+        font-family: Jost;
+        font-size: 36px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 42px;
+    }
+    .carousel-section .slide .health-food-text-wrap h3 {
+        text-align: center;
+    }
+    .carousel-section .slide .view-more-btn {
+        width: 100%;
+        height: 48px;
+    }
+    .carousel-section .slide .view-more-btn span {
+        color: #000;
+        text-align: center;
+        font-family: Jost;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 24px;
+    }
+}
+</style>
+
+<script>
+(function () {
+    var section = document.getElementById('carouselSection');
+    var slides = section.querySelectorAll('.slide');
+    var total = slides.length;
+
+    // ✅ Dynamically set section height based on slide count
+    function getViewportHeight() {
+        if (window.visualViewport && window.visualViewport.height) {
+            return window.visualViewport.height;
+        }
+        return window.innerHeight;
+    }
+    function setSectionHeight() {
+        var styles = getComputedStyle(section);
+        var headerOffset = parseInt(
+            styles.getPropertyValue('--carousel-header-offset')
+        ) || 0;
+
+        var vh = getViewportHeight();
+        section.style.height = (vh * total + headerOffset) + 'px';
+    }
+
+    setSectionHeight();
+    window.addEventListener('resize', setSectionHeight);
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', setSectionHeight);
+    }
+
+    function applyOffset(progress) {
+        var maxOffset = total - 1;
+        var offset = progress * maxOffset;
+
+        slides.forEach(function (slide, i) {
+            var y;
+            if (offset < i - 1) {
+                y = 100;
+            } else if (offset >= i + 1) {
+                y = 0;
+            } else if (i - 1 <= offset && offset < i) {
+                y = (i - offset) * 100;
+            } else {
+                y = 0;
+            }
+            slide.style.transform = 'translateY(' + y + '%)';
+        });
+    }
+
+    function handleScroll() {
+        var rect = section.getBoundingClientRect();
+        var sectionHeight = section.offsetHeight;
+        var viewportH = getViewportHeight();
+
+        var scrollStart = rect.top - parseInt(getComputedStyle(section).getPropertyValue('--carousel-header-offset'));
+        var scrollRange = sectionHeight - viewportH;
+
+        if (scrollRange <= 0) return;
+
+        var progress = Math.min(
+            Math.max(-scrollStart / scrollRange, 0),
+            1
+        );
+
+        applyOffset(progress);
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+})();
+</script>

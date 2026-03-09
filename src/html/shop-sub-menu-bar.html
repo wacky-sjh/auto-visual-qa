@@ -1,0 +1,55 @@
+<nav class="shop-submenu" id="shop-submenu" aria-label="Shop category submenu">
+  <a href="/category/hair-care/64/">Hair Care</a>
+  <a href="/category/scalp-care/85/">Scalp Care</a>
+  <a href="/category/hair-device/24/">Hair Device</a>
+  <a href="/category/accessories/91/">Accessories</a>
+  <a href="/category/health-food/25/">Health Food</a>
+  <a href="/category/lifestyle/26/">Lifestyle</a>
+</nav>
+
+<style>
+  .shop-submenu {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 36px;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid #eee;
+  }
+  .shop-submenu.is-visible {
+      display: flex;
+  }
+  .shop-submenu a {
+      text-align: center;
+      color: var(--black);
+      text-decoration: none;
+      font-size: 16px;
+      white-space: nowrap;
+  }
+  .shop-submenu a:hover {
+      color: var(--black);
+      text-decoration: underline;
+  }
+
+  @media (max-width: 1000px) {
+      .shop-submenu {
+          justify-content: flex-start;
+          flex-wrap: nowrap;
+          gap: 24px;
+          padding: 1rem 1.5rem;
+          overflow-x: auto;
+          overflow-y: hidden;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: thin;
+      }
+      .shop-submenu::-webkit-scrollbar {
+          height: 4px;
+      }
+      .shop-submenu::-webkit-scrollbar-thumb {
+          background: #ddd;
+          border-radius: 2px;
+      }
+  }
+</style>
