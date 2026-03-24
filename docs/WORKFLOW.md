@@ -1,18 +1,34 @@
-# Auto Visual QA — 플로우 & 사용법
+# Auto Visual QA — 플로우 & 사용법 (Image Overlay)
 
 ## 전체 플로우
 
 ```
 [Designer] → Figma Design (Auto Layout, 시맨틱 네이밍)
     ↓
-[Figma 노드 URL + MCP] → AI 코드 생성 (Cursor)
+[Figma 노드 URL 지정] → .env 설정 후 `npm run figma-baseline` 실행
     ↓
-[Local Render] → Playwright 스크린샷 → implementation.png
+[개발자 구현] → 로컬에 저장된 baseline.png를 Storybook 오버레이로 불러오기
     ↓
-[Pixelmatch] → baseline vs implementation 비교 → diff + report.html
+[Visual QA] → Storybook UI에서 "Figma Overlay (QA)" 체크, 투명도 조절하며 육안 검증
     ↓
-[피드백] → 수정 후 반복
+[협업 피드백] → 차이점을 바로 수정 후, Storybook에서 실시간 확인
 ```
+
+---
+
+## 협업 QA 플로우 (Storybook 오버레이 기능 활용)
+
+Storybook 화면 위에서 Figma 시안 이미지를 반투명하게 겹쳐보며 픽셀 단위 차이를 육안으로 직관적으로 찾아냅니다.
+
+1. **디자인 이미지 가져오기**:
+   - 디자이너가 준 Figma 노드 URL을 `.env`의 `FIGMA_URL`에 설정하고 `npm run figma-baseline`을 실행합니다.
+   - `output/baseline.png` 경로에 기준 이미지가 저장됩니다.
+2. **Storybook 파라미터 연동**:
+   - 단위 UI 컴포넌트의 `.stories.tsx` 파일 속 파라미터에 `overlay: { url: '/baseline.png' }` 설정을 추가합니다.
+3. **검증 수행**:
+   - `npm run storybook`으로 서버를 실행합니다.
+   - 우측 하단에 위치한 **Figma Overlay (QA)** 패널의 체크박스를 켭니다.
+   - 투명도 슬라이더를 조절하여 디자인과 구현 화면 간의 미세한 픽셀, 여백 차이를 육안으로 확인하고 수정합니다.
 
 ---
 

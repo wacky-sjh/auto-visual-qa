@@ -21,7 +21,7 @@ export default function BasicCard({ className, ...props }: BasicCardProps) {
       <div className="h-[316px] w-full overflow-hidden rounded-t-[20px]">
         <img
           alt="card image"
-          src={cardImage}
+          src={mosaic}
           className="h-full w-full object-cover"
         />
       </div>
