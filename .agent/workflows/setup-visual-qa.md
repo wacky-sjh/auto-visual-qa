@@ -2,49 +2,55 @@
 description: [Figma -> Storybook 오버레이 Visual QA 세팅]
 ---
 
-이 워크플로우는 React/Vite 환경에서 디자이너의 Figma 원본과 프론트엔드 개발자의 실제 컴포넌트를 Storybook에서 반투명 오버레이로 겹쳐보며 육안 검증(QA)할 수 있는 인프라를 автомати화하여 세팅합니다.
+이 워크플로우는 React/Vite 환경에서 Figma 시안과 실제 컴포넌트를 Storybook 상에서 반투명 오버레이로 겹쳐보며 QA할 수 있는 인프라를 자동 세팅합니다.
 
-### 1단계: Storybook 및 애드온 설치
-Storybook을 초기화하고, 디자인 연동에 필요한 패키지(`@storybook/addon-designs`, `dotenv`)를 설치합니다.
+### 1단계: Storybook 및 필수 애드온 설치
+Storybook을 초기화하고, 시각 검수에 최적화된 애드온들을 설치합니다.
 
 // turbo
 ```bash
 npx storybook@latest init -y
-npm install -D @storybook/addon-designs dotenv
+npm install -D @storybook/addon-designs @storybook/addon-a11y dotenv
 ```
 
-### 2단계: Figma API 스크립트 세팅
-`.env` 파일에서 Figma URL과 토큰을 읽어 `output/baseline.png`로 저장해주는 스크립트를 만듭니다.
-`scripts/figma-baseline.ts` 파일을 생성하고 작성합니다: (자세한 코드는 참조 레포의 figma-baseline.ts 사용)
+### 2단계: Multi-Component Figma Baseline 스크립트
+1. 루트에 `figma.config.json` 파일을 생성하여 컴포넌트별 Figma URL을 관리합니다.
+2. `scripts/figma-baseline.ts` 파일을 생성하여 해당 JSON을 읽고 이미지를 `output/` 폴더에 일괄 다운로드하는 로직을 작성합니다.
+3. `package.json`의 scripts에 다음을 추가합니다:
+   ```json
+   "figma-baseline": "npx tsx scripts/figma-baseline.ts",
+   "build-storybook": "mkdir -p output && storybook build"
+   ```
 
-`package.json`의 scripts에 다음을 추가합니다:
+### 3단계: 오버레이 데코레이터 주입 (`withOverlay.tsx`)
+`.storybook/withOverlay.tsx` 컴포넌트를 생성합니다. 
+- **기능**: 투명도 슬라이더, 디자인-코드 토글 기능을 포함합니다.
+- **UI 배치**: UI를 가리지 않도록 컴포넌트 우측 상단 바깥에 패널을 배치합니다 (`position: absolute`, `translateX(100%)`).
+
+### 4단계: Storybook 설정 업데이트
+1. `.storybook/main.ts`:
+   - `staticDirs: ["../output"]` 설정 추가 (이미지 서빙용)
+   - `addons` 배열에 `@storybook/addon-designs` 추가
+2. `.storybook/preview.ts`:
+   - `decorators: [withOverlay]` 등록
+   - `import '../src/index.css';` 등 전역 스타일 임포트
+
+### 5단계: 배포 환경 구성 (Vercel)
+루트에 `vercel.json`을 생성하여 스토리북 단독 배포 설정을 추가합니다.
 ```json
-"figma-baseline": "npx tsx scripts/figma-baseline.ts"
+{
+  "buildCommand": "npm run build-storybook",
+  "outputDirectory": "storybook-static"
+}
 ```
 
-### 3단계: 오버레이 데코레이터 컴포넌트 추가
-스토리북 화면 위에 기준 이미지를 올리고 투명도를 조절할 수 있는 컴포넌트(`.storybook/withOverlay.tsx`)를 생성합니다. (슬라이더 및 "구현 화면", "Figma 원본" 레이블 포함)
-
-### 4단계: Storybook Config 수정
-1. `.storybook/main.ts`에 다음과 같이 추가합니다.
-   - `staticDirs: ["../output"]`
-   - `addons` 배열에 `"@storybook/addon-designs"` 추가
-2. `.storybook/preview.ts`에 전역 CSS와 데코레이터를 등록합니다.
-```ts
-import '../src/index.css'; // 혹은 전역 CSS 경로
-import { withOverlay } from './withOverlay';
-
-export default {
-  decorators: [withOverlay]
-};
-```
-
-### 5단계: 스토리에 파라미터 연동하기
-새로운 컴포넌트의 `.stories.tsx` 파일에 아래와 같이 파라미터를 추가하여 오버레이 연동을 완료합니다.
+### 6단계: 사용법
+컴포넌트 스토리 파일(`*.stories.tsx`)에 아래 파라미터를 추가하여 오버레이를 활성화합니다.
 ```ts
 export const Default = {
+  tags: ['autodocs'],
   parameters: {
-    overlay: { url: '/baseline.png' }
+    overlay: { url: '/ComponentName.png' }
   }
 };
 ```
