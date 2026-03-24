@@ -1,67 +1,54 @@
-# Auto Visual QA — 팀 보고 요약
+# Auto Visual QA — 팀 보고 요약 (Image Overlay 방식)
 
 ## 목적
 
-**Figma 디자인**과 **AI/개발자가 구현한 코드 결과물**을 픽셀 단위로 비교해, 시각적 차이를 리포트로 확인하는 파이프라인입니다.
+**Figma 디자인**과 **구현된 코드 결과물**을 Storybook 상에서 반투명 오버레이로 겹쳐보며, 시각적 차이를 직관적으로 확인하고 즉각 수정하는 협업 QA 파이프라인입니다.
 
 ---
 
 ## 핵심 플로우
 
-1. **Baseline**: Figma 디자인의 레이어/프레임 링크로 Figma API를 호출해 해당 프레임 이미지를 저장한다.
-2. **구현물 캡처**: 코드로 구현한 뒤 Playwright로 화면 스크린샷을 저장한다.
-3. **정규화**: Sharp로 두 이미지를 같은 크기로 리사이징하고, 해상도·인코딩 등을 동일한 픽셀 포맷(RGBA)으로 맞춘다.
-4. **픽셀 비교**: Pixelmatch로 같은 (x, y) 위치 픽셀끼리 색 차이를 계산하고, threshold보다 크면 “다른 픽셀”로 판단해 차이 영역을 표시한다.
-5. **결과 저장**: pngjs로 diff 픽셀 데이터를 PNG(diff.png)로 저장하고, report.html을 생성한다.
+1. **Baseline**: `figma.config.json`에 정의된 Figma 노드 URL들을 통해 Figma API를 호출, 원본 디자인 이미지를 `output/` 폴더에 저장한다.
+2. **Storybook 연동**: 스토리북의 Custom Decorator(`withOverlay`)를 통해 로컬에 저장된 가이드 이미지를 컴포넌트 위에 렌더링한다.
+3. **육안 검증**: 개발자와 디자이너가 스토리북에서 투명도 슬라이더를 조절하며 픽셀 단위의 오차, 여백, 폰트 차이를 확인한다.
+4. **실시간 수정**: 코드 수정 시 스토리북에 즉시 반영되므로, 오버레이를 켠 상태에서 디자인 시안과 100% 일치할 때까지 반복 수정한다.
 
 ---
 
-## 검증 단위 (두 가지)
+## 협업 환경 (Storybook)
 
-| 구분              | Baseline                                  | Implementation                       | 용도                       |
-| ----------------- | ----------------------------------------- | ------------------------------------ | -------------------------- |
-| **단일 컴포넌트** | Figma에서 해당 노드만 export              | 해당 요소만 스크린샷 (selector 지정) | 카드, 버튼, Input, 모달 등 |
-| **전체 화면**     | 페이지 프레임 전체 export (예: 1920×1080) | 동일 뷰포트로 전체 페이지 스크린샷   | 완성된 페이지 레이아웃     |
+- **배포**: Vercel을 통해 스토리북을 호스팅하여 디자이너가 별도의 환경 세팅 없이 브라우저에서 바로 검수가 가능하다.
+- **직관성**: 픽셀 비교 리포트(HTML)를 따로 열어볼 필요 없이, 실제 작동하는 컴포넌트 위에서 디자인 시안을 겹쳐볼 수 있어 협업 효율이 극대화된다.
 
 ---
 
 ## 구현된 기능
 
-- **Figma baseline 자동 저장**: `.env`에 토큰 + Figma 노드 URL → `npm run figma-baseline` → `output/baseline.png`
-- **구현물 스크린샷**: 전체 화면(1920×1080) 또는 **특정 컴포넌트만** selector로 캡처
-- **비주얼 diff**: baseline vs implementation 픽셀 비교. **비교 전 두 이미지를 Sharp로 동일 크기·RGBA 정규화** 후 Pixelmatch로 diff. 크기 다르면 자동 리사이즈 후 비교.
-- **리포트**: `output/report.html` — **원본 (Figma)**, **구현 (코드)**, **Diff (차이 마스크)** 3개로 차이 위치 확인.
-- **신뢰성 보강**: [FigDiff](https://github.com/FigDiff/figdiff-server) 참고 — 이미지 정규화, `VISUAL_DIFF_THRESHOLD` 환경변수로 허용 오차 조절(기본 `0.25`). 상세는 `docs/WORKFLOW.md`의 "리포트 신뢰성 개선" 참고.
+- **Figma 일괄 다운로드**: `figma.config.json` 설정 파일 기반으로 여러 컴포넌트의 디자인 이미지를 한 번에 업데이트 (`npm run figma-baseline`).
+- **투명도 오버레이 조절기**: 스토리북 내 우측 하단 컨트롤러를 통해 "구현 화면"과 "Figma 원본" 사이의 투명도를 0~100% 조절 가능.
+- **다중 컴포넌트 지원**: 각 스토리별로 개별적인 오버레이 이미지를 매핑하여 대규모 디자인 시스템 QA 대응 가능.
 
 ---
 
 ## 스택
 
 - 프론트: Vite, React, TypeScript, Tailwind CSS
-- 비주얼 QA: Playwright(스크린샷), Pixelmatch(diff), Sharp(리사이즈·이미지 정규화)
-- 연동: Figma REST API, Cursor Figma MCP(코드 생성 시 활용)
+- 비주얼 QA: Storybook, Figma REST API
+- 배포: Vercel (Hobby)
 
 ---
 
 ## 실행 순서 (요약)
 
-1. `npm run figma-baseline` — 기준 이미지 저장 (최초 1회 또는 디자인 변경 시)
-2. `npm run dev` — 로컬 서버
-3. `npm run screenshot` 또는 `npm run screenshot:component -- "[data-qa=컴포넌트명]"` — 구현 스크린샷
-4. `npm run visual-diff` — diff 생성 및 `output/report.html` 생성
-5. report.html 브라우저로 열어 차이 확인 후 수정 반복
-
-상세 사용법은 `README.md`, `docs/WORKFLOW.md` 참고.
+1. `npm run dev` & `npm run storybook` 실행
+2. `npm run figma-baseline` — 최신 디자인 시안 로컬 저장
+3. 스토리북에서 컴포넌트 선택 후 **Figma Overlay (QA)** 활성화
+4. 투명도를 조절하며 디자인 가이드에 맞게 코드 수정
 
 ---
 
-## 정확도와 한계
+## 장점 및 활용
 
-- **픽셀 단위 비교**: Pixelmatch가 픽셀마다 색을 비교하므로, **2px 차이(border-radius 8px vs 6px 같은)도 곡선 부위 픽셀이 달라지면 감지됩니다.** “이 영역이 다르다”는 걸 찾는 데는 충분히 정확합니다.
-- **차이 “값”은 안 나옴**: diff는 “어디가 다른지(픽셀 위치)”만 보여줍니다. “8px vs 6px이다” 같은 수치는 알 수 없고, 리포트 보고 코드/피그마에서 직접 확인해야 합니다.
-- **영향 요인**
-  - 구현 이미지를 baseline 크기로 **리사이즈**하면, 확대/축소 보간 때문에 가장자리가 살짝 흐려질 수 있어, 아주 미세한 디테일은 완벽하지 않을 수 있음.
-  - Figma 렌더링과 브라우저(CSS) 렌더링이 달라서, 같은 수치여도 픽셀이 1~2개 다르게 나올 수 있음(노이즈).
-  - **threshold** 로 미세한 색 차이를 무시해 렌더링 노이즈를 줄임. 기본값 **0.25** 이며, `VISUAL_DIFF_THRESHOLD` 환경변수로 조절 가능(예: `VISUAL_DIFF_THRESHOLD=0.3 npm run visual-diff`). 값을 올리면 오탐은 줄고 실제 차이를 놓칠 수 있고, 낮추면 더 예민해지나 오탐이 늘어날 수 있음.
-  - 비교 전 **baseline·implementation을 Sharp로 동일 파이프라인 정규화**해 포맷/채널을 맞춰, 색상·인코딩 차이로 인한 오탐을 줄임.
-- **요약**: “디테일한 차이가 있는지, 어디 부위인지”를 찾는 용도로는 유효하고, 2px 수준 차이도 보통 감지됩니다. “정확히 몇 px 차이인지”까지 자동으로 알려주지는 않습니다.
+- **빠른 피드백 루프**: 수동 스크린샷이나 리포트 생성 과정 없이 실시간으로 눈으로 대조하며 수정 가능.
+- **디렉터리 구조 최적화**: 사용하지 않는 무거운 이미지 처리 라이브러리(Playwright, Sharp 등)를 제거하여 프로젝트 가벼움 유지.
+- **확장성**: 새로운 프로젝트 시작 시 `.agent/workflows/setup-visual-qa.md` 룰을 이용해 5분 만에 동일 QA 환경 구축 가능.
