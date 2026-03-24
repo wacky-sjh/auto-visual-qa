@@ -3,8 +3,6 @@ import { cn } from '@/lib/utils';
 import mosaic from '@/assets/images/mosaic.png';
 import { Typography } from './ui/typography';
 
-const cardImage =
-  'https://www.figma.com/api/mcp/asset/52cbf6c9-74a6-4b53-a379-f9ee911b4b25';
 
 type BasicCardProps = React.HTMLAttributes<HTMLDivElement>;
 
