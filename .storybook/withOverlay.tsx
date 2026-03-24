@@ -29,16 +29,33 @@ export const withOverlay: Decorator = (Story, context) => {
         />
       )}
 
-      {/* Control Panel */}
+      {/* Floating Control Toggle / Panel */}
       <div style={{ 
-        position: 'fixed', bottom: '20px', right: '20px', 
-        padding: '12px 16px', background: 'white', 
-        border: '1px solid #ddd', borderRadius: '8px',
+        position: 'absolute', 
+        top: 0, 
+        right: '-20px', 
+        padding: '12px 16px',
+        background: 'white', 
+        border: '1px solid #ddd', 
+        borderRadius: '8px',
         boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-        zIndex: 10000, display: 'flex', flexDirection: 'column', gap: '8px',
-        fontFamily: 'sans-serif', color: '#333'
+        zIndex: 10000, 
+        display: 'flex', 
+        flexDirection: 'column', 
+        gap: '8px',
+        fontFamily: 'sans-serif', 
+        color: '#333',
+        transform: 'translateX(100%)', // Position to the right of the component
       }}>
-        <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', fontWeight: 600, cursor: 'pointer' }}>
+        <label style={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          gap: '8px', 
+          fontSize: '14px', 
+          fontWeight: 600, 
+          cursor: 'pointer',
+          whiteSpace: 'nowrap'
+        }}>
           <input 
             type="checkbox" 
             checked={showOverlay} 
@@ -47,6 +64,7 @@ export const withOverlay: Decorator = (Story, context) => {
           />
           Figma Overlay (QA)
         </label>
+        
         {showOverlay && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', marginTop: '8px', width: '180px' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '11px', fontWeight: 500 }}>
