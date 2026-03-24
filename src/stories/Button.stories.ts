@@ -33,7 +33,7 @@ export const Primary: Story = {
   },
   parameters: {
     overlay: {
-      url: '/baseline.png', // output 폴더 안의 baseline.png 참조
+      url: '/Button.png',
     },
     design: {
       type: 'figma',

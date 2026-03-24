@@ -18,7 +18,7 @@ export const Default: Story = {
   parameters: {
     // 픽셀 검수를 위한 오버레이 이미지 설정
     overlay: {
-      url: '/baseline.png', // output 폴더 안의 baseline.png 참조
+      url: '/BasicCard.png',
     },
   },
 };

@@ -12,7 +12,7 @@
     "lint": "eslint .",
     "figma-baseline": "npx tsx scripts/figma-baseline.ts",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "mkdir -p output && storybook build"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.4",
